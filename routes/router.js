@@ -49,7 +49,7 @@ route.get('/api/user/search-item',controller.search_item)
 
 route.get('/api/user/getItemByDistance',controller.getNearByItems) 
 
-// route.get('/api/user/logout',middleware.authorization,controller.logout)
+route.get('/api/user/logout',middleware.authorization,controller.logout)
 
 
 
