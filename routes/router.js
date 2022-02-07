@@ -51,6 +51,8 @@ route.get('/api/user/getItemByDistance',controller.getNearByItems)
 
 route.get('/api/user/logout',middleware.authorization,controller.logout)
 
+route.post('/api/user/cart/:name',controller.addToCart)
+
 
 
 

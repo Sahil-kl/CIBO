@@ -1,6 +1,7 @@
 const customer = require('../model/signUp')
 const category= require('../model/categories')
 const Item = require('../model/items')
+const cartItem = require('../model/cart')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -8,6 +9,7 @@ const jwt = require('jsonwebtoken')
 const { body , validationResult} = require('express-validator')
 
 const nodemailer=require('nodemailer')
+const { ResultWithContext } = require('express-validator/src/chain')
 
 
 
@@ -623,6 +625,8 @@ exports.add_item=[
                 item_picture: (!req.files || Object.keys(req.files).length === 0)? "":req.files['item_picture'][0].filename 
             })
 
+            
+
 
             newItem2.save(newItem2)
             .then(data=>{
@@ -808,4 +812,56 @@ exports.logout=(req,res)=>{
             Error:err
         })
     })
+}
+
+exports.addToCart=(req,res)=>{
+ 
+    Item.findOne({name : req.params.name})
+    .then(data=>{
+        
+        if(data){
+
+            console.log(data.item_picture)
+          let cartadd = new cartItem({
+
+            item_id : data._id,
+            name: data.name,
+            price: data.price,
+            seller_id : data.seller_id,
+            customer_id: data.customer_id,
+            item_picture : data.item_picture
+
+          })
+          console.log(cartadd)
+         
+          cartadd.save(cartadd)
+          .then(data=>{
+              res.status(200).json({
+                  message:'Item added to cart',
+                  Data:data
+                  
+              })
+          }).catch(err=>{
+            res.json({
+                Error:err
+            })
+          })
+
+        }
+        else{
+            res.json({
+                message: " Data not found"
+            })
+        }
+    })
+    .catch(err=>{
+        res.status(400).json({
+            Error :err,
+            message:"data not found"
+        })
+    })
+
+
+
+
 }
