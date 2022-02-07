@@ -14,7 +14,6 @@ const { ResultWithContext } = require('express-validator/src/chain')
 
 
 
-
 exports.login=[ 
     body('email').exists().withMessage('Please enter your Email')
         .isEmail().withMessage('Invalid email address'),
@@ -281,7 +280,6 @@ exports.update=(req,res)=>{
         res.status(401).send(err);
         })
 }
-
 
 
 
@@ -724,6 +722,7 @@ exports.search_item=(req,res)=>{
 }
 
 
+
 exports.getNearByItems=(req,res)=>{
     try{
 
@@ -798,6 +797,7 @@ exports.getNearByItems=(req,res)=>{
 }
 
 
+
 exports.logout=(req,res)=>{
     let token= req.headers.authorization;
 
@@ -814,6 +814,8 @@ exports.logout=(req,res)=>{
     })
 }
 
+
+
 exports.addToCart=(req,res)=>{
  
     Item.findOne({name : req.params.name})
@@ -828,8 +830,9 @@ exports.addToCart=(req,res)=>{
             name: data.name,
             price: data.price,
             seller_id : data.seller_id,
-            customer_id: data.customer_id,
-            item_picture : data.item_picture
+            customer_id: req.currentUser,
+            item_picture : data.item_picture,
+            quantity : req.body.quantity
 
           })
           console.log(cartadd)

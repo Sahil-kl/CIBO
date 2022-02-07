@@ -17,12 +17,19 @@ const cartSchema = new mongoose.Schema({
         required:true,
         
     },
-    price:{
-        type:String
+    customer_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'customers',
+        required:true,
+        
     },
     item_picture:{
         type:String
+    },
+    quantity :{
+        type: Number
     }
+
 
 });
 
