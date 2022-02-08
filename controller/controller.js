@@ -123,8 +123,8 @@ exports.signUp= [
                 password:hash,
                 confirmPassword:hash,
                // loc: { type: "Point", coordinates: [ parseFloat(req.body.lng), parseFloat(req.body.lat) ] },
-               lat:parseFloat(req.body.lat),
-               lng:parseFloat(req.body.lng),
+            //    lat:req.body.lat,
+            //    lng:req.body.lng,
                location:{ type: 'Point', coordinates: [ req.body.lng, req.body.lat] }
                              
             });
