@@ -459,6 +459,10 @@ exports.forget_password=[
                         message:"user not found "
                     })
                 }
+            }).catch(err=>{
+                res.status(401).json({
+                    errors : err
+                })
             })
         }
 
